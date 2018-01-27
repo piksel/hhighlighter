@@ -122,16 +122,7 @@ Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or u
        local WHICH="type -P"
     fi
 
-    if ! ACKGREP_LOC="$($WHICH ack-grep)" || [ -z "$ACKGREP_LOC" ]; then
-        if ! ACK_LOC="$($WHICH ack)" || [ -z "$ACK_LOC" ]; then
-            echo "ERROR: Could not find the ack or ack-grep commands"
-            return 1
-        else
-            local ACK=$($WHICH ack)
-        fi
-    else
-        local ACK=$($WHICH ack-grep)
-    fi
+    ACK=$(dirname $0)/ack.pl 
 
     # build the filtering command
     for keyword in "$@"
@@ -145,3 +136,5 @@ Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or u
     cat - | eval $_COMMAND
 
 }
+
+h $@
